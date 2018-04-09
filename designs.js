@@ -6,16 +6,29 @@ $('#sizePicker').submit(function(event){
     event.preventDefault();
     height = $("#inputHeight").val();
     width = $("#inputWidth").val();
-    console.log(height);
-    console.log(width);
     makeGrid(height, width);
 });
 
 
-function makeGrid(h, y) {
+function makeGrid(h, w) {
     //reset grid
     $('tr').remove();
-    for (var i = 1; i<= h; i++){
-        $('#pixelCanvas').append('<tr id=table' + i + '></tr>')
+//for loop to take height and create a tr per loop needed
+    for (var i = 1; i<= h; i++) {
+        $('#pixelCanvas').append('<tr id=table' + i + '></tr>');
+        //for loop to take width and create a td per loop needed
+        for (var j = 1; j <= w; j++){
+            $('#table' + i).append('<td></td>');
+        }
     }
+    // add color to cell depending on selection
+    $('td').click(function addcolor(){
+        color = $('#colorPicker').val();
+
+        if($(this).attr('style')) {
+            $(this).removeAttr('style')
+        } else {
+            $(this).attr('style', 'background-color:' +color);
+        }
+    })
 }
